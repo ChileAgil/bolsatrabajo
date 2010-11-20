@@ -1,4 +1,4 @@
 /app/config
-/app/tmp
+/app/tmp/*
 /plugins
 /vendors
