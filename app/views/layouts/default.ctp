@@ -43,8 +43,8 @@
 	@import "gallery.css";
 	</style>
 <!-- UNCOMMENT ON PRODUCTION ENVIRONMENT
-    <!-- Google Analytics -->
 	<script type="text/javascript">
+    /* Google Analytics */
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-19663371-1']);
     _gaq.push(['_trackPageview']);
