@@ -33,7 +33,7 @@
 			<?php echo $this->Html->link(__('Delete', true), array('action' => 'delete', $usuario['User']['usuario_id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $usuario['User']['usuario_id'])); ?>
 		</td>
 	</tr>
-<?php endforeach; ?>
+    <?php endforeach; ?>
 	</table>
 	<p>
 	<?php

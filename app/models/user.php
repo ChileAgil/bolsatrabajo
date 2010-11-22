@@ -3,7 +3,37 @@ class User extends AppModel {
 	var $name = 'User';
 	var $useTable = 'usuarios';
 	var $primaryKey = 'usuario_id';
-	//var $uses = array('Usuario');
+    
+    var $hasOne = array(
+        'Empresa' => array(
+            'className' => 'Empresa',
+            'foreignKey' => 'usuario_id',
+            'dependent' => false
+        )
+    );
+
+	var $belongsTo = array(
+		'TipoUsuario' => array(
+			'className' => 'TipoUsuario',
+			'foreignKey' => 'tipo_usuario_id',
+            'dependent' => false
+		)
+	);
+
+	var $hasMany = array(
+		'Alternativa' => array(
+			'className' => 'Alternativa',
+			'foreignKey' => 'usuario_id',
+			'dependent' => false
+		),
+		'Informacion' => array(
+			'className' => 'Informacion',
+			'foreignKey' => 'usuario_id',
+			'dependent' => false
+		)
+	);
+
+	
 	var $validate = array(
 		'nombre' => array(
 			'notempty' => array(
@@ -56,46 +86,5 @@ class User extends AppModel {
 			),
 		),
 	);
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
-	var $belongsTo = array(
-		'TipoUsuario' => array(
-			'className' => 'TipoUsuario',
-			'foreignKey' => 'tipo_usuario_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		)
-	);
-
-	var $hasMany = array(
-		'Alternativa' => array(
-			'className' => 'Alternativa',
-			'foreignKey' => 'usuario_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		),
-		'Informacion' => array(
-			'className' => 'Informacion',
-			'foreignKey' => 'usuario_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		)
-	);
-
 }
 ?>

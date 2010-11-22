@@ -36,10 +36,25 @@ class AppController extends Controller {
 	var $components = array('Auth','Session');
 	
 	function beforeFilter(){
-	
 		$this->Auth->userModel = 'User';
 		$this->Auth->fields = array('username' => 'email', 'password' => 'password');
 		$this->Auth->loginAction = array('admin' => false, 'controller' => 'users', 'action' => 'login');
 		$this->Auth->loginRedirect = array('controller' => 'bienvenida', 'action' => 'index');
+        $this->Auth->loginError = "Cuenta de usuario invalida";
+        $this->Auth->userScope = array('User.activo'=>'1');
+        
+        $this->Auth->authorize = 'controller';
 	}
+    
+    function isAuthorized() {
+		return true;
+    }
+    
+    function showSuccessMessage($message){
+        $this->Session->setFlash($message, 'default', array('class' => 'message_success'));
+    }
+    
+    function showErrorMessage($message){
+        $this->Session->setFlash($message, 'default', array('class' => 'message_error'));
+    }
 }

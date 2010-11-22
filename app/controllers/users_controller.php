@@ -4,54 +4,68 @@ class UsersController extends AppController {
 	var $name = 'Users';
 	var $uses = array('User','Opcion','Informacion','Alternativa','Empresa');
 	var $helpers = array('Html', 'Form');
-//	var $components = array('Auth','Session');
+
 	function index() {
 		$this->User->recursive = 0;
-		//debug($this->Session->read('Usuario'));
 		$this->set('usuarios', $this->paginate());
 	}
+    
 	function beforeFilter() 
-	{ 
+	{
 		parent::beforeFilter();
-		
-			if ($this->Auth->user('tipo_usuario_id') == "3"){
-			
-				$this->Auth->allow('*');
-				
-			}
-			if($this->Auth->user('usuario_id') != null && $this->Auth->user('tipo_usuario_id') != "3"){
-			
-				$this->Auth->allow('edit','registro_trabajador', 'registro_empleador', 'gracias_trabajadores','gracias_empresas','logout');
-			
-			}
-			if($this->Auth->user('tipo_usuario_id') == null){
-				$this->Auth->allow('registro_trabajador', 'registro_empleador', 'gracias_trabajadores','gracias_empresas','logout');
-		//$this->Auth->allow('*');
-		}
-			$this->Auth->authorize = 'controller';
+        
+        if($this->Auth->user('tipo_usuario_id') == null){
+            $this->Auth->allow('registro_trabajador', 'registro_empleador', 'gracias_trabajadores','gracias_empresas','logout');
+        }
 	}
+    
+    function isAuthorized(){
+        switch($this->Auth->user('tipo_usuario_id')){
+            case '1':
+            case '2':
+                switch($this->action){
+                    case 'edit':
+                    case 'view':
+                        if(isset($this->params['pass'][0])){ //Primer parametro para view o edit
+                            if($this->params['pass'][0] == $this->Auth->user('usuario_id'))
+                                return true;
+                            else return false;
+                        }
+                        debug($this->params);
+                        return true;
+                    default:
+                        return false;
+                }
+                break;
+            case '3':
+            case '4':
+                return true;
+        }
+        
+        return false;
+    }
 
 	function login() 
-    { 
-	
-
+    {
+        if (!empty($this->data)) {
+            $email = $this->data['User']['email'];
+            $user = $this->User->find('first', array('conditions' => array('email' => $email)));
+            if($user['User']['activo'] == '0'){
+                $this->showErrorMessage('Tu cuenta no est&aacute; activa. Debe ser activada por secretaria docente del DCC');
+            }
+        }
     } 
 
     function logout() 
     { 
         $this->Session->destroy(); 
-        $this->Session->setFlash('Te has deslogueado exitosamente'); 
-        $this->redirect('login'); 
+        $this->showSuccessMessage('Te has deslogueado exitosamente'); 
+        $this->redirect($this->Auth->logout()); 
     } 
 
-
-
-
 	function view($id = null) {
-		if (!$id) {
-			$this->Session->setFlash(__('Invalid usuario', true));
-			$this->redirect(array('action' => 'index'));
-		}
+		if (!$id)
+            $id = $this->Auth->user('usuario_id');
 		$this->set('usuario', $this->User->read(null, $id));
 	}
 
@@ -60,7 +74,7 @@ class UsersController extends AppController {
 		if (!empty($this->data)) {
 			$existe = $this->User->find('first', array('fields'=>'email','conditions' => array('email' => $this->data['User']['email'])));
 			if(!empty($existe)){
-				$this->Session->setFlash(__('El email ya existe. Por favor utilice otro', true));
+				$this->showErrorMessage(__('El email ya existe. Por favor utilice otro', true));
 				$this->data['User']['password'] = '';
 				$this->data['User']['email'] = '';
 				$tipoUsuarios = $this->User->TipoUsuario->find('list', array('fields' => array('tipo_usuario_id','tipo_usuario')));
@@ -70,11 +84,11 @@ class UsersController extends AppController {
 			$this->User->create();
 			if ( empty($existe) && $this->User->save($this->data)) {
 				
-				$this->Session->setFlash(__('Su registro se ha efectuado con éxito', true));
+				$this->showSuccessMessage(__('Su registro se ha efectuado con éxito', true));
 				$this->redirect(array('action' => 'index'));
 			} else {
 			//	$this->data['User']['password'] = '';
-				$this->Session->setFlash(__('No se ha podido registrar por favor revise los campos marcados en rojo.', true));
+				$this->showErrorMessage(__('No se ha podido registrar por favor revise los campos marcados en rojo.', true));
 			}
 		}
 		$tipoUsuarios = $this->User->TipoUsuario->find('list', array('fields' => array('tipo_usuario_id','tipo_usuario')));
@@ -82,37 +96,30 @@ class UsersController extends AppController {
 
 	}
 	function registro_trabajador() {
-		
-
 		if (!empty($this->data)) {
 			$opciones_elegidas = split(",",$this->data['User']['valores_lista']);
 
 			$existe = $this->User->find('first', array('fields'=>'email','conditions' => array('email' => $this->data['User']['email'])));
 			if(!empty($existe)){
-				$this->Session->setFlash(__('El email ya existe. Por favor utilice otro', true));
+				$this->showErrorMessage(__('El email ya existe. Por favor utilice otro', true));
 				$this->data['User']['password'] = '';
 				$this->data['User']['email'] = '';
 				$opciones = $this->Opcion->find('all', array('conditions'=>array('Opcion.tipo_usuario_id'=>2)));
 				$this->set(compact('opciones'));
-				$tipoUsuarios = $this->User->TipoUsuario->find('list', array('fields' => array('tipo_usuario_id','tipo_usuario')));
-				$this->set(compact('tipoUsuarios'));
 				return;
 			}
 			$this->User->create();
 			$this->data['User']['tipo_usuario_id'] = 1;
+            $this->data['User']['activo'] = 1; //Los trabajadores siempre comienzan en estado activo
+            
 			if (empty($existe) && $this->User->save($this->data)){ 
 				$this->User->save($this->data); 
 				foreach($this->data['Info'] as $info){
 					if(!empty($info['Informacion']['referencia']) && !empty($info['Informacion']['descripcion'])){
-
 						$this->Informacion->create();
-
 						$info['Informacion']['usuario_id'] = $this->User->field('usuario_id');
-						
 						$this->Informacion->save($info);
-
 					}
-
 				}
 				for($i = 0; $i<count($opciones_elegidas); $i++){
 					$this->Alternativa->create();
@@ -123,104 +130,97 @@ class UsersController extends AppController {
 					$this->Alternativa->save($alternativas);
 				}
 				
-				$this->Session->setFlash(__('Su registro se ha efectuado con éxito', true));
+				$this->showSuccessMessage(__('Su registro se ha efectuado con éxito', true));
 				$this->redirect(array('controller'=>'users','action' => 'gracias_trabajadores'));
 				return;
 
 			} else {
 				$this->data['User']['password'] = '';
-				$this->Session->setFlash(__('No se ha podido registrar por favor revise los campos marcados en rojo.', true));
+				$this->showErrorMessage(__('No se ha podido registrar por favor revise los campos marcados en rojo.', true));
 			}
 		}
 		$opciones = $this->Opcion->find('all', array('conditions'=>array('Opcion.tipo_usuario_id'=>1)));
 		$this->set(compact('opciones'));
-		$tipoUsuarios = $this->User->TipoUsuario->find('list', array('fields' => array('tipo_usuario_id','tipo_usuario')));
-		$this->set(compact('tipoUsuarios'));
 	}
+    
 	function registro_empleador() {
-
 		if (!empty($this->data)) {
 			$opciones_elegidas = split(",",$this->data['User']['valores_lista']);
 
 			$existe = $this->User->find('first', array('fields'=>'email','conditions' => array('email' => $this->data['User']['email'])));
 			if(!empty($existe)){
-				$this->Session->setFlash(__('El email ya existe. Por favor utilice otro', true));
+				$this->showErrorMessage(__('El email ya existe. Por favor utilice otro', true));
 				$this->data['User']['password'] = '';
 				$this->data['User']['email'] = '';
 				$opciones = $this->Opcion->find('all', array('conditions'=>array('Opcion.tipo_usuario_id'=>2)));
 				$this->set(compact('opciones'));
-				$tipoUsuarios = $this->User->TipoUsuario->find('list', array('fields' => array('tipo_usuario_id','tipo_usuario')));
-				$this->set(compact('tipoUsuarios'));
 				return;
 			}
 			$this->User->create();
 			$this->data['User']['tipo_usuario_id'] = 2;
-			
+			$this->data['User']['activo'] = 0; // Los empleadores siempre comienzan inactivos (Sandra debe autorizarlos)
+            
 			$this->User->set($this->data);
 			$this->Empresa->create();
 			$this->Empresa->set($this->data);
 			
-				if (empty($existe) && $this->Empresa->validates()){
-					if($this->User->validates()){
-				$this->User->save();
-				$this->data['Empresa']['usuario_id'] = $this->User->getLastInsertID();
-				$this->Empresa->set($this->data);
-				$this->Empresa->save();
-				foreach($this->data['Info'] as $info){
-					if(!empty($info['Informacion']['referencia']) && !empty($info['Informacion']['descripcion'])){
-
-						$this->Informacion->create();
-						$info['Informacion']['usuario_id'] = $this->User->field('usuario_id');
-						
-						$this->Informacion->save($info);
-					}
-
-				}
-				for($i = 0; $i<count($opciones_elegidas); $i++){
-					$this->Alternativa->create();
-					$alternativas['Alternativa']['usuario_id'] = $this->User->field('usuario_id');
-					$j = $i+1;
-					$alternativas['Alternativa']['opcion_id'] = $opciones_elegidas[$i];
-					$alternativas['Alternativa']['lugar'] = $j;
-					$this->Alternativa->save($alternativas);
-				}
-				
-				$this->Session->setFlash(__('Su registro se ha efectuado con éxito', true));
-				$this->redirect(array('controller'=>'users','action' => 'gracias_empresas'));
-				return;
-			}
+            if (empty($existe) && $this->Empresa->validates()){
+                if($this->User->validates()){
+                    $this->User->save();
+                    $this->data['Empresa']['usuario_id'] = $this->User->getLastInsertID();
+                    $this->Empresa->set($this->data);
+                    $this->Empresa->save();
+                    foreach($this->data['Info'] as $info){
+                        if(!empty($info['Informacion']['referencia']) && !empty($info['Informacion']['descripcion'])){
+                            $this->Informacion->create();
+                            $info['Informacion']['usuario_id'] = $this->User->field('usuario_id');
+                            $this->Informacion->save($info);
+                        }
+                    }
+                    
+                    for($i = 0; $i<count($opciones_elegidas); $i++){
+                        $this->Alternativa->create();
+                        $alternativas['Alternativa']['usuario_id'] = $this->User->field('usuario_id');
+                        $j = $i+1;
+                        $alternativas['Alternativa']['opcion_id'] = $opciones_elegidas[$i];
+                        $alternativas['Alternativa']['lugar'] = $j;
+                        $this->Alternativa->save($alternativas);
+                    }
+                    
+                    $this->showSuccessMessage(__('Su registro se ha efectuado con éxito', true));
+                    $this->redirect(array('controller'=>'users','action' => 'gracias_empresas'));
+                    return;
+                }
 			} else {
 				$this->data['User']['password'] = '';
-				$this->Session->setFlash(__('No se ha podido registrar por favor revise los campos marcados en rojo.', true));
+				$this->showErrorMessage(__('No se ha podido registrar por favor revise los campos marcados en rojo.', true));
 			}
 		}
 		$opciones = $this->Opcion->find('all', array('conditions'=>array('Opcion.tipo_usuario_id'=>2)));
 		$this->set(compact('opciones'));
-		$tipoUsuarios = $this->User->TipoUsuario->find('list', array('fields' => array('tipo_usuario_id','tipo_usuario')));
-		$this->set(compact('tipoUsuarios'));
-
 	}
+    
 	function gracias_empresas(){
 		
 	}
 	function gracias_trabajadores(){
 		
 	}
+    
 	function edit($id = null) {
-		//	$this->Session->setFlash(debug($this->Auth->user()), true);
-			$id = $this->Auth->user('usuario_id');
+        $id = $this->Auth->user('usuario_id');
 			
 		if (!$id && empty($this->data)) {
-			$this->Session->setFlash(__('Invalid usuario', true));
+			$this->showErrorMessage(__('Invalid usuario', true));
 			$this->redirect(array('action' => 'index'));
 		}
 		if (!empty($this->data)) {
 			
 			if ($this->User->save($this->data)) {
-				$this->Session->setFlash(__('Sus datos han sido modificados con éxito', true));
+				$this->showSuccessMessage(__('Sus datos han sido modificados con éxito', true));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('Sus datos no pudieron ser modificados por favor intente nuevamente', true));
+				$this->showErrorMessage(__('Sus datos no pudieron ser modificados por favor intente nuevamente', true));
 			}
 		}
 		if (empty($this->data)) {
@@ -235,15 +235,56 @@ class UsersController extends AppController {
 
 	function delete($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for usuario', true));
+			$this->showErrorMessage(__('Invalid id for usuario', true));
 			$this->redirect(array('action'=>'index'));
 		}
 		if ($this->User->delete($id)) {
-			$this->Session->setFlash(__('Usuario deleted', true));
+			$this->showSuccessMessage(__('Usuario deleted', true));
 			$this->redirect(array('action'=>'index'));
 		}
-		$this->Session->setFlash(__('Usuario was not deleted', true));
+		$this->showErrorMessage(__('Usuario was not deleted', true));
 		$this->redirect(array('action' => 'index'));
 	}
+    
+    function empresas_pendientes(){
+        $empresas = $this->User->find('all', array('conditions' => array('User.activo' => 0)));
+        $this->set(compact('empresas'));
+    }
+    
+    function detalles_empresa($empresa_id = null){
+        if($empresa_id){
+            $empresa = $this->User->Empresa->find('first', array('conditions' => array('Empresa.empresa_id' => $empresa_id)));
+            $this->set('empresa', $empresa);
+        }
+    }
+    
+    function aceptar_empresa($usuario_responsable_id = null){
+        if($usuario_responsable_id){
+            $this->User->id = $usuario_responsable_id;
+            if($this->User->saveField('activo',1)){
+                $this->showSuccessMessage(__('Empresa aceptada', true));
+                $this->redirect(array('action' => 'empresas_pendientes'));
+            }
+        }
+        $this->showErrorMessage(__('Ocurrio un error al aceptar la empresa', true));
+        $this->redirect(array('action' => 'empresas_pendientes'));
+    }
+    
+    function rechazar_empresa($usuario_responsable_id = null){
+        if($usuario_responsable_id){
+            /**
+             * Debemos borrar los usuarios rechazados por secretaria docente?
+             *
+            if($this->User->Empresa->deleteAll(array('Empresa.usuario_id' => $usuario_responsable_id))){
+                if($this->User->delete($usuario_responsable_id, false)){
+                    $this->showSuccessMessage(__('Empresa rechazada', true));
+                    $this->redirect(array('action' => 'empresas_pendientes'));
+                }
+            }
+            */
+        }
+        $this->showErrorMessage(__('Ocurrio un error al rechazar la empresa', true));
+        $this->redirect(array('action' => 'empresas_pendientes'));
+    }
 }
 ?>

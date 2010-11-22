@@ -3,6 +3,15 @@ class Empresa extends AppModel {
 	var $name = 'Empresa';
 	var $useTable = 'empresas';
 	var $primaryKey = 'empresa_id';
+    
+    var $belongsTo = array(
+        'User' => array(
+            'className' => 'User',
+            'foreignKey' => 'usuario_id',
+            'dependent' => true
+        )
+    );
+    
 	var $validate = array(
 		'nombre_fantasia' => array(
 			'notempty' => array(
