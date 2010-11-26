@@ -1,13 +1,13 @@
--- MySQL dump 10.13  Distrib 5.1.51, for pc-linux-gnu (i686)
+-- MySQL dump 10.13  Distrib 5.1.51, for Win32 (ia32)
 --
--- Host: localhost    Database: cc62_201002_db
+-- Host: localhost    Database: bolsa
 -- ------------------------------------------------------
--- Server version	5.1.51
+-- Server version	5.1.51-community
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES latin1 */;
+/*!40101 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -65,7 +65,7 @@ CREATE TABLE `comunas` (
 
 LOCK TABLES `comunas` WRITE;
 /*!40000 ALTER TABLE `comunas` DISABLE KEYS */;
-INSERT INTO `comunas` VALUES (1,'AlhuÈ'),(2,'Buin'),(3,'Calera de Tango'),(4,'Cerrillos'),(5,'Cerro Navia'),(6,'Colina'),(7,'ConchalÌ'),(8,'CuracavÌ'),(9,'El Bosque'),(10,'El Monte'),(11,'EstaciÛn Central'),(12,'Huechuraba'),(13,'Independencia'),(14,'Isla de Maipo'),(15,'JoaquÌn'),(16,'La Cisterna'),(17,'La Florida'),(18,'La Granja'),(19,'La Pintana'),(20,'La Reina'),(21,'Lampa'),(22,'Las Condes'),(23,'Lo Barnechea'),(24,'Lo Espejo'),(25,'Lo Prado'),(26,'Macul'),(27,'Maip˙'),(28,'MarÌa Pinto'),(29,'Melipilla'),(30,'—uÒoa'),(31,'Padre Hurtado'),(32,'Paine'),(33,'PeÒaflor'),(34,'PeÒalolÈn'),(35,'Pedro Aguirre Cerda'),(36,'Pirque'),(37,'Providencia'),(38,'Pudahuel'),(39,'Puente Alto'),(40,'Quilicura'),(41,'Quinta Normal'),(42,'Recoleta'),(43,'Renca'),(44,'San Bernardo'),(45,'San JosÈ de Maipo'),(46,'San Miguel'),(47,'San Pedro'),(48,'San RamÛn'),(49,'Santiago'),(50,'Talagante'),(51,'Tiltil'),(52,'Vitacura');
+INSERT INTO `comunas` VALUES (1,'Alhu√©'),(2,'Buin'),(3,'Calera de Tango'),(4,'Cerrillos'),(5,'Cerro Navia'),(6,'Colina'),(7,'Conchal√≠'),(8,'Curacav√≠'),(9,'El Bosque'),(10,'El Monte'),(11,'Estaci√≥n Central'),(12,'Huechuraba'),(13,'Independencia'),(14,'Isla de Maipo'),(15,'Joaqu√≠n'),(16,'La Cisterna'),(17,'La Florida'),(18,'La Granja'),(19,'La Pintana'),(20,'La Reina'),(21,'Lampa'),(22,'Las Condes'),(23,'Lo Barnechea'),(24,'Lo Espejo'),(25,'Lo Prado'),(26,'Macul'),(27,'Maip√∫'),(28,'Mar√≠a Pinto'),(29,'Melipilla'),(30,'√ëu√±oa'),(31,'Padre Hurtado'),(32,'Paine'),(33,'Pe√±aflor'),(34,'Pe√±alol√©n'),(35,'Pedro Aguirre Cerda'),(36,'Pirque'),(37,'Providencia'),(38,'Pudahuel'),(39,'Puente Alto'),(40,'Quilicura'),(41,'Quinta Normal'),(42,'Recoleta'),(43,'Renca'),(44,'San Bernardo'),(45,'San Jos√© de Maipo'),(46,'San Miguel'),(47,'San Pedro'),(48,'San Ram√≥n'),(49,'Santiago'),(50,'Talagante'),(51,'Tiltil'),(52,'Vitacura');
 /*!40000 ALTER TABLE `comunas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -91,7 +91,7 @@ CREATE TABLE `empresas` (
   PRIMARY KEY (`empresa_id`),
   UNIQUE KEY `usuario_id` (`usuario_id`),
   CONSTRAINT `empresas_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`usuario_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -100,7 +100,7 @@ CREATE TABLE `empresas` (
 
 LOCK TABLES `empresas` WRITE;
 /*!40000 ALTER TABLE `empresas` DISABLE KEYS */;
-INSERT INTO `empresas` VALUES (1,'Sonda','Sonda',23285174,'0','mision','vision','web','historia',1,0),(2,'Mobilitas SpA','Mobilitas SpA',76095037,'8','','','www.ikwest.com','',20,0),(3,'ZhetaPricing','ZhetaPricing Chile S.A.',76021508,'2','Ser Lideres en el desarrollo de soluciones de Revenue Management en diversas industrias a nivel global para asÌ generar valor econÛmico sostenible a nuestros clientes.','','www.zpricing.com','',21,0),(4,'Teki','Teki Soluciones de Software Ltda.',76055611,'4','','','http://www.teki.cl','',30,0),(5,'Newtenberg','Newtenberg Publicaciones Digitales Limitada',77543180,'6','Proveer soluciones de tecnologÌa para la comunicaciÛn humana para distintos contextos','Newtenberg, el Nuevo Gutenberg, es una compaÒÌa chilena dedicada al desarrollo de tecnologÌas de informaciÛn que permitan apoyar los procesos de informar, comunicar y coordinar acciones entre las personas. Bajo esta premisa un grupo multidisciplinario de profesionales ha combinado los mundos del diseÒo, software y medios de comunicaciÛn para proveer a las organizaciones de tecnologÌas y pr·cticas virtuosas en el manejo de informaciÛn y coordinaciÛn de sus ìhaceresî.  ','http://www.newtenberg.com/','Hacia 1450 la apariciÛn de la Imprenta de Tipos MÛviles de Gutenberg permitiÛ la revitalizaciÛn del desarrollo intelectual de nuestra cultura entreg·ndonos la posibilidad de acceder al conocimiento de la sociedad en formato libro. Esta tecnologÌa improntÛ en el conocimiento dos restricciones que no le son inherentes: la serializaciÛn y la jerarquizaciÛn, si bien el libro es una contribuciÛn en si, el resultado de su aplicaciÛn por mas de 500 aÒos ha conducido a un din·mica fragmentaria en que los libros de matem·ticas, filosofÌa o historia necesariamente pertenecen a ·reas del conocimiento casi disjuntas. \r\nLa apariciÛn del WWW hacia 1992 y la conceptualizaciÛn de los hipertextos desde mucho antes, abren la posibilidad de una interrelaciÛn distinta que posibilita la recomposiciÛn de los contenidos y la posibilidad de aproximaciones no lineales que implican una transformaciÛn cultural importante para un mundo obsesionado con la b˙squeda de jer·rquÌas ˙nicas y con el af·n de sentar convenciones universales que obligan a otros a mirar y pensar de una ˙nica forma.\r\nEl aporte de Newtenberg en este contexto viene de la mano del estudio del fenÛmeno de la comunicaciÛn humana en tÈrminos de la biologÌa, el rol del lenguaje, el establecimiento de protocolos, la registro de observaciones y la integraciÛn de distintas visiones: software, medios de comunicaciÛn, bibliotecologÌa, diseÒo de informaciÛn.\r\nA partir del aÒo 2000 esto se traduce en el desarrollo tecnolÛgico de una plataforma para la documentaciÛn y organizaciÛn del conocimiento: basada en 3 distinciones: una unidad b·sica de contenido universal (eidox), soporte para taxonomÌas y miradas sem·nticas m˙ltiples (clasificandos) y un modelamiento de cualquier sistema humano de coordinaciÛn como una conversaciÛn que se registra y caracteriza.\r\nEsta aproximaciÛn ha permitido a la compaÒÌa resolver con la misma plataforma un conjunto diverso de problemas: desde la recopilaciÛn de fuentes primarias de la historia, la organizaciÛn de sistemas legales y de jurisprudencia, el desarrollo de grandes portales de informaciÛn y recientemente el monitoreo de todo tipo de indicadores.\r\nNos interesa trabajar con personas que amen su trabajo y aspiren a que las obras que desarrollemos en conjunto sean una contribuciÛn al desarrollo de la sociedad e impacten positivamente en la educaciÛn de las nuevas generaciones.    ',37,0);
+INSERT INTO `empresas` VALUES (1,'Sonda','Sonda',23285174,'0','mision','vision','web','historia',1,1),(2,'Mobilitas SpA','Mobilitas SpA',76095037,'8','','','www.ikwest.com','',20,0),(3,'ZhetaPricing','ZhetaPricing Chile S.A.',76021508,'2','Ser Lideres en el desarrollo de soluciones de Revenue Management en diversas industrias a nivel global para as√≠ generar valor econ√≥mico sostenible a nuestros clientes.','','www.zpricing.com','',21,0),(4,'Teki','Teki Soluciones de Software Ltda.',76055611,'4','','','http://www.teki.cl','',30,0),(5,'Newtenberg','Newtenberg Publicaciones Digitales Limitada',77543180,'6','Proveer soluciones de tecnolog√≠a para la comunicaci√≥n humana para distintos contextos','Newtenberg, el Nuevo Gutenberg, es una compa√±√≠a chilena dedicada al desarrollo de tecnolog√≠as de informaci√≥n que permitan apoyar los procesos de informar, comunicar y coordinar acciones entre las personas. Bajo esta premisa un grupo multidisciplinario de profesionales ha combinado los mundos del dise√±o, software y medios de comunicaci√≥n para proveer a las organizaciones de tecnolog√≠as y pr√°cticas virtuosas en el manejo de informaci√≥n y coordinaci√≥n de sus ‚Äúhaceres‚Äù.  ','http://www.newtenberg.com/','Hacia 1450 la aparici√≥n de la Imprenta de Tipos M√≥viles de Gutenberg permiti√≥ la revitalizaci√≥n del desarrollo intelectual de nuestra cultura entreg√°ndonos la posibilidad de acceder al conocimiento de la sociedad en formato libro. Esta tecnolog√≠a impront√≥ en el conocimiento dos restricciones que no le son inherentes: la serializaci√≥n y la jerarquizaci√≥n, si bien el libro es una contribuci√≥n en si, el resultado de su aplicaci√≥n por mas de 500 a√±os ha conducido a un din√°mica fragmentaria en que los libros de matem√°ticas, filosof√≠a o historia necesariamente pertenecen a √°reas del conocimiento casi disjuntas. \r\nLa aparici√≥n del WWW hacia 1992 y la conceptualizaci√≥n de los hipertextos desde mucho antes, abren la posibilidad de una interrelaci√≥n distinta que posibilita la recomposici√≥n de los contenidos y la posibilidad de aproximaciones no lineales que implican una transformaci√≥n cultural importante para un mundo obsesionado con la b√∫squeda de jer√°rqu√≠as √∫nicas y con el af√°n de sentar convenciones universales que obligan a otros a mirar y pensar de una √∫nica forma.\r\nEl aporte de Newtenberg en este contexto viene de la mano del estudio del fen√≥meno de la comunicaci√≥n humana en t√©rminos de la biolog√≠a, el rol del lenguaje, el establecimiento de protocolos, la registro de observaciones y la integraci√≥n de distintas visiones: software, medios de comunicaci√≥n, bibliotecolog√≠a, dise√±o de informaci√≥n.\r\nA partir del a√±o 2000 esto se traduce en el desarrollo tecnol√≥gico de una plataforma para la documentaci√≥n y organizaci√≥n del conocimiento: basada en 3 distinciones: una unidad b√°sica de contenido universal (eidox), soporte para taxonom√≠as y miradas sem√°nticas m√∫ltiples (clasificandos) y un modelamiento de cualquier sistema humano de coordinaci√≥n como una conversaci√≥n que se registra y caracteriza.\r\nEsta aproximaci√≥n ha permitido a la compa√±√≠a resolver con la misma plataforma un conjunto diverso de problemas: desde la recopilaci√≥n de fuentes primarias de la historia, la organizaci√≥n de sistemas legales y de jurisprudencia, el desarrollo de grandes portales de informaci√≥n y recientemente el monitoreo de todo tipo de indicadores.\r\nNos interesa trabajar con personas que amen su trabajo y aspiren a que las obras que desarrollemos en conjunto sean una contribuci√≥n al desarrollo de la sociedad e impacten positivamente en la educaci√≥n de las nuevas generaciones.    ',37,0);
 /*!40000 ALTER TABLE `empresas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -128,7 +128,7 @@ CREATE TABLE `informaciones` (
 
 LOCK TABLES `informaciones` WRITE;
 /*!40000 ALTER TABLE `informaciones` DISABLE KEYS */;
-INSERT INTO `informaciones` VALUES (1,1,'Sonda','Empresa de desarrollo de Software'),(2,4,'test','test'),(3,11,'Camilo Palma','Curso CC4401 (Ing, de Software)'),(4,11,'Diego Rivera','En cursos varios del DCC'),(5,37,'Carlos Castillo Ocaranza','Socio fundador, actualmente trabaja para Yahoo Research'),(6,37,'HÈctor RodrÌguez','Ingeniero de desarrollo, interfases y visualizaciÛn'),(7,37,'Alejandro Vera','Ingenierio de desarrollo, inteoperabilidad de sistemas'),(8,43,'Felipe Garrido','ImplementaciÛn de Prototipo de WebApp en cake');
+INSERT INTO `informaciones` VALUES (1,1,'Sonda','Empresa de desarrollo de Software'),(2,4,'test','test'),(3,11,'Camilo Palma','Curso CC4401 (Ing, de Software)'),(4,11,'Diego Rivera','En cursos varios del DCC'),(5,37,'Carlos Castillo Ocaranza','Socio fundador, actualmente trabaja para Yahoo Research'),(6,37,'H√©ctor Rodr√≠guez','Ingeniero de desarrollo, interfases y visualizaci√≥n'),(7,37,'Alejandro Vera','Ingenierio de desarrollo, inteoperabilidad de sistemas'),(8,43,'Felipe Garrido','Implementaci√≥n de Prototipo de WebApp en cake');
 /*!40000 ALTER TABLE `informaciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -151,12 +151,13 @@ CREATE TABLE `ofertas` (
   `comuna_id` int(11) DEFAULT NULL,
   `subzona` enum('centro','norte','sur','este','oeste') DEFAULT NULL,
   `nombre_empresa` varchar(64) DEFAULT NULL,
+  `validada` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`oferta_id`),
   KEY `fk_ofertas_comunas` (`comuna_id`),
   KEY `fk_ofertas_empresas` (`empresa_id`),
   CONSTRAINT `fk_ofertas_comunas` FOREIGN KEY (`comuna_id`) REFERENCES `comunas` (`comuna_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_ofertas_empresas` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`empresa_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -165,6 +166,7 @@ CREATE TABLE `ofertas` (
 
 LOCK TABLES `ofertas` WRITE;
 /*!40000 ALTER TABLE `ofertas` DISABLE KEYS */;
+INSERT INTO `ofertas` VALUES (4,2,'Oferta 1','Cargo de analista','desc 1','',NULL,'1',37,'centro',NULL,0),(5,3,'titulo 2','Cargo de analista 2','descripcion 2','',NULL,'Trabajo',37,'norte',NULL,0),(7,NULL,'Titulo Test','Cargo Test','Descripcion Test','',100000,'2',13,'sur','Empresa Test',0);
 /*!40000 ALTER TABLE `ofertas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -212,7 +214,7 @@ CREATE TABLE `req_adicionales` (
   KEY `fk_req_adicionales_ofertas` (`oferta_id`),
   CONSTRAINT `fk_req_adicionales_ofertas` FOREIGN KEY (`oferta_id`) REFERENCES `ofertas` (`oferta_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_req_adicionales_tipo_requerimientos` FOREIGN KEY (`tipo_id`) REFERENCES `tipo_requerimientos` (`tipo_requerimiento_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -221,6 +223,7 @@ CREATE TABLE `req_adicionales` (
 
 LOCK TABLES `req_adicionales` WRITE;
 /*!40000 ALTER TABLE `req_adicionales` DISABLE KEYS */;
+INSERT INTO `req_adicionales` VALUES (2,4,1,'C'),(3,5,1,'C++'),(4,5,2,'MySQL'),(5,7,1,'C, C++, Matlab'),(6,7,2,'MySQL, PostgreSQL, SQLServer');
 /*!40000 ALTER TABLE `req_adicionales` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -244,7 +247,7 @@ CREATE TABLE `tipo_requerimientos` (
 
 LOCK TABLES `tipo_requerimientos` WRITE;
 /*!40000 ALTER TABLE `tipo_requerimientos` DISABLE KEYS */;
-INSERT INTO `tipo_requerimientos` VALUES (1,'Lenguaje de ProgramaciÛn'),(2,'Base de datos'),(3,'Framework de desarrollo'),(4,'TecnologÌa/Plataforma'),(5,'Aptitudes');
+INSERT INTO `tipo_requerimientos` VALUES (1,'Lenguaje de Programaci√≥n'),(2,'Base de datos'),(3,'Framework de desarrollo'),(4,'Tecnolog√≠a/Plataforma'),(5,'Aptitudes');
 /*!40000 ALTER TABLE `tipo_requerimientos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -281,13 +284,13 @@ DROP TABLE IF EXISTS `usuarios`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `usuarios` (
   `usuario_id` int(11) NOT NULL AUTO_INCREMENT,
-  `empresa_id` int(11) DEFAULT NULL,
   `nombre` varchar(64) NOT NULL,
   `apellido` varchar(64) NOT NULL,
   `email` varchar(64) NOT NULL,
   `password` varchar(64) NOT NULL,
   `fecha_nacimiento` date DEFAULT NULL,
   `tipo_usuario_id` int(11) NOT NULL,
+  `activo` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`usuario_id`),
   KEY `fk_usuarios_tipo_usuarios1` (`tipo_usuario_id`),
   CONSTRAINT `fk_usuarios_tipo_usuarios1` FOREIGN KEY (`tipo_usuario_id`) REFERENCES `tipo_usuarios` (`tipo_usuario_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -300,7 +303,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,NULL,'Christian Eduardo','Palomares Peralta','palomares.c@gmail.com','fb7b751b835cbc5770acb573a4fe2dc33867a735','1985-02-01',1),(2,NULL,'Sandra','Gaez','sandra@dcc.uchile.cl','bdacdd0c1c3e9a7627361bbe8d46a76d59decf7e',NULL,4),(3,NULL,'Ivan','Videla','ividela@gmail.com','498e7892f466de7fbb8f19f978aaef63c59b2e42','1985-05-30',3),(4,NULL,'test','test','test@test.com','fb5099cad340f5a7ae385ec27babb02f2474f959','1991-01-02',1),(5,NULL,'RamÛn','Cruzat Hermosilla','cruzzat@gmail.com','d421fa74fb4268976b02a17e84029a47f0a27bb0','1984-01-03',1),(6,NULL,'milton galo patricio','inostroza aguilera','minostro@dcc.uchile.cl','1c1b76b1904d2b965d33ffcb1514a482014f6a6b','1983-04-08',1),(7,NULL,'Mauricio','Farah','mfarah@dcc.uchile.cl','15a0c7f16e286979fb5a184c3e7e0a0021b2f60a','1984-03-31',1),(8,NULL,'Gonzalo','PÈrez-Cotapos','gonzalo.perezcotapos.santis@gmail.com','5685e42edace2cf319bd56728164957728cf3ad8','1988-03-25',1),(9,NULL,'Felipe','Orellana','forellancast@gmail.com','1a99be5ef24285ebec26906f4f500803955b7cd1','1988-11-27',1),(10,NULL,'felipe','hern·ndez','fhernand@dcc.uchile.cl','bcb843e13bbce29dc2a78e22526853d60ebc7637','1989-06-13',1),(11,NULL,'Pablo','EstefÛ','pestefo@gmail.com','04eae590b4302f484f327e9ca173a0a34b7ee92c','1989-02-09',1),(12,NULL,'Fernanda','RamÌrez','feramire@dcc.uchile.cl','72bb21c1586675cb8cf2c0cadef720e4cb719d53','1989-04-11',1),(13,NULL,'Mauricio','Quezada','mquezada@dcc.uchile.cl','4a916c350118a624eb1adfa9cdca751f6d655298','1989-04-20',1),(14,NULL,'Sebastian','Valenzuela','svalenzu@ing.uchile.cl','a860554e2f75d14df423342b3cd220ab8f3372c3','1987-06-22',1),(15,NULL,'Eduardo','Escobar','eduescob@dcc.uchile.cl','fb150fe2ec5d135565e458ec9be79d654a857248','1989-02-16',1),(16,NULL,'Felipe Ignacio','Gonz·lez MartÌnez','felipegmch@gmail.com','9f2385577e28d0776520f141f68e95ebd72f859d','1987-09-12',1),(17,NULL,'Lissette','Cabrera','lisss.c@gmail.com','e412ae31702a2c555a08a42b46fdfd3cc4a98f1c','1986-04-15',1),(18,NULL,'Nicolas','Ulriksen','nulrikse@dcc.uchile.cl','01c9e62ded2d2c523ca3ab23ba3d8af944d8c8bc','1989-04-12',1),(19,NULL,'Aldo','Bertero','aldo.bertero@gmail.com','7338fc6d641499dae1477de9818ff29b24ff74c0','1989-05-25',1),(20,NULL,'Heiko','Linn','hlinn@ikwest.com','f856b149002e095820fd27a2811454c1a6f36cab','1969-08-15',2),(21,NULL,'Nicol·s','Dujovne','nicolas.dujovne@zpricing.com','0e8561125695cac4d7e4282c0939280f0a3c0f59','1982-12-26',2),(22,NULL,'Cristi·n','C·mpora','ccampora@gmail.com','702c312fa62ae89b6c9421e663b24e74d650ca4b','1982-05-05',1),(23,NULL,'Mauricio','Z˙Òiga','mzuniga@gmail.com','a841467d2b02d82946b048f556ed67f749188726','1978-06-14',1),(24,NULL,'Mauricio','Farah','mafarah@gmail.com','f371298583281458a09add674b224a313d0aee2c','1984-03-31',1),(25,NULL,'Antonio','Jimenez','anthonyzucabar@gmail.com','1d6805d08ec2409232301d965b3fdd64ca21d526','1987-01-23',1),(26,NULL,'Diego','Bonilla','dbonilla.cl@gmail.com','54dce3761bd72af04f2200046217146305cc619a','1983-09-25',1),(27,NULL,'Anibal','Llanos Prado','anllanos@ing.uchile.cl','7e067ec27312946faad58ec788320eca4c208327','1986-03-19',1),(28,NULL,'Alfredo\'); select * from usuarios;','Perez','ass@mailinator.com','7ba778100b554bc598f8c5505f16296635a0d527','1970-02-01',1),(29,NULL,'Cristian','Olate','colate@dcc.uchile.cl','e050abad66199911a1e03528284d20d71bc7a985','1979-10-22',1),(30,NULL,'JosÈ Miguel','Vives','jmvives@teki.cl','24453d5c764bedd7f5e8df085926f576841f89b9','1982-09-16',2),(31,NULL,'Sergio','Pola','sergio.pola.contreras@gmail.com','1a22594abd302d89ff73ea160822f1a70569dc9d','1983-12-25',1),(32,NULL,'Francisco','MÈndez','franc.mendez@gmail.com','66b45d50a411307f695e289761fe0224b9116759','1983-08-21',1),(33,NULL,'Felipe','Sologuren','sologuren@estudiohum.cl','f67af6dfc93be6aecd13836229795be0dad4e37d','1973-10-19',1),(34,NULL,'Nicolas','Malbran','nmalbran@gmail.com','15205c408ee02033454ec76079c6dd739fc2dfb7','1988-06-11',1),(35,NULL,'Roberto','Varas','rvaras@dcc.uchile.cl','046eba177d9d48e7359704ae338d87d667faf2ea','1980-06-19',1),(36,NULL,'Roberto','Riquelme','rriquelm@dcc.uchile.cl','afcf7de80a389cb6cf8f70f6144604b5c529a211','1987-01-05',1),(37,NULL,'JosÈ Pepe','Flores Peters','jflores@newtenberg.com','20eba75c8337f1c61942f26e04c68dee7e344985','1968-12-04',2),(38,NULL,'Ivan','Pliouchtchai','ivan.pli+bolsa.trabajo.dcc@gmail.com','3b2e84dd350067c403901e7734630ce8d20d7236','1986-06-24',1),(39,NULL,'Alejandro','Lavado','alejandro.lvd@gmail.com','337836de2afa3d032a9e3216b6f0d3c144007bd7','1988-03-17',1),(40,NULL,'Ivan','Rojas','ivanrohe@gmail.com','4116c1a670a92fcfe20203e95d55a29ad5234c58','1990-03-10',1),(41,NULL,'Diego','Schmitt Rivera','dschmitt@dcc.uchile.cl','d49eb5298f8fc5e910e023587fb7ef0f1a9db99e','1987-04-04',1),(42,NULL,'Rodrigo','DÌaz','Rodrigo.Diaz.D@gmail.com','fffacd1af71c72183b87c0bc08192dd56776451b','1986-08-07',1),(43,NULL,'Pedro','Valencia','pvalencia@gmail.com','5559255305bbc4a9df2366c43fc4268f3b7071de','1985-08-25',1),(44,NULL,'alex','cevallos','alexcevallos@hotmail.com','684fde787aa62c227c93355fa9f5541058d5ab91','1982-11-09',1);
+INSERT INTO `usuarios` VALUES (1,'Christian Eduardo','Palomares Peralta','palomares.c@gmail.com','fb7b751b835cbc5770acb573a4fe2dc33867a735','1985-02-01',1,0),(2,'Sandra','Gaez','sandra@dcc.uchile.cl','bdacdd0c1c3e9a7627361bbe8d46a76d59decf7e',NULL,4,1),(3,'Ivan','Videla','ividela@gmail.com','498e7892f466de7fbb8f19f978aaef63c59b2e42','1985-05-30',3,1),(4,'test','test','test@test.com','fb5099cad340f5a7ae385ec27babb02f2474f959','1991-01-02',1,0),(5,'Ram√≥n','Cruzat Hermosilla','cruzzat@gmail.com','d421fa74fb4268976b02a17e84029a47f0a27bb0','1984-01-03',1,0),(6,'milton galo patricio','inostroza aguilera','minostro@dcc.uchile.cl','1c1b76b1904d2b965d33ffcb1514a482014f6a6b','1983-04-08',1,0),(7,'Mauricio','Farah','mfarah@dcc.uchile.cl','15a0c7f16e286979fb5a184c3e7e0a0021b2f60a','1984-03-31',1,0),(8,'Gonzalo','P√©rez-Cotapos','gonzalo.perezcotapos.santis@gmail.com','5685e42edace2cf319bd56728164957728cf3ad8','1988-03-25',1,0),(9,'Felipe','Orellana','forellancast@gmail.com','1a99be5ef24285ebec26906f4f500803955b7cd1','1988-11-27',1,0),(10,'felipe','hern√°ndez','fhernand@dcc.uchile.cl','bcb843e13bbce29dc2a78e22526853d60ebc7637','1989-06-13',1,0),(11,'Pablo','Estef√≥','pestefo@gmail.com','04eae590b4302f484f327e9ca173a0a34b7ee92c','1989-02-09',1,0),(12,'Fernanda','Ram√≠rez','feramire@dcc.uchile.cl','72bb21c1586675cb8cf2c0cadef720e4cb719d53','1989-04-11',1,0),(13,'Mauricio','Quezada','mquezada@dcc.uchile.cl','4a916c350118a624eb1adfa9cdca751f6d655298','1989-04-20',1,0),(14,'Sebastian','Valenzuela','svalenzu@ing.uchile.cl','a860554e2f75d14df423342b3cd220ab8f3372c3','1987-06-22',1,0),(15,'Eduardo','Escobar','eduescob@dcc.uchile.cl','fb150fe2ec5d135565e458ec9be79d654a857248','1989-02-16',1,0),(16,'Felipe Ignacio','Gonz√°lez Mart√≠nez','felipegmch@gmail.com','9f2385577e28d0776520f141f68e95ebd72f859d','1987-09-12',1,0),(17,'Lissette','Cabrera','lisss.c@gmail.com','e412ae31702a2c555a08a42b46fdfd3cc4a98f1c','1986-04-15',1,0),(18,'Nicolas','Ulriksen','nulrikse@dcc.uchile.cl','01c9e62ded2d2c523ca3ab23ba3d8af944d8c8bc','1989-04-12',1,0),(19,'Aldo','Bertero','aldo.bertero@gmail.com','7338fc6d641499dae1477de9818ff29b24ff74c0','1989-05-25',1,0),(20,'Heiko','Linn','hlinn@ikwest.com','f856b149002e095820fd27a2811454c1a6f36cab','1969-08-15',2,0),(21,'Nicol√°s','Dujovne','nicolas.dujovne@zpricing.com','0e8561125695cac4d7e4282c0939280f0a3c0f59','1982-12-26',2,0),(22,'Cristi√°n','C√°mpora','ccampora@gmail.com','702c312fa62ae89b6c9421e663b24e74d650ca4b','1982-05-05',1,0),(23,'Mauricio','Z√∫√±iga','mzuniga@gmail.com','a841467d2b02d82946b048f556ed67f749188726','1978-06-14',1,0),(24,'Mauricio','Farah','mafarah@gmail.com','f371298583281458a09add674b224a313d0aee2c','1984-03-31',1,0),(25,'Antonio','Jimenez','anthonyzucabar@gmail.com','1d6805d08ec2409232301d965b3fdd64ca21d526','1987-01-23',1,0),(26,'Diego','Bonilla','dbonilla.cl@gmail.com','54dce3761bd72af04f2200046217146305cc619a','1983-09-25',1,0),(27,'Anibal','Llanos Prado','anllanos@ing.uchile.cl','7e067ec27312946faad58ec788320eca4c208327','1986-03-19',1,0),(28,'Alfredo\'); select * from usuarios;','Perez','ass@mailinator.com','7ba778100b554bc598f8c5505f16296635a0d527','1970-02-01',1,0),(29,'Cristian','Olate','colate@dcc.uchile.cl','e050abad66199911a1e03528284d20d71bc7a985','1979-10-22',1,0),(30,'Jos√© Miguel','Vives','jmvives@teki.cl','24453d5c764bedd7f5e8df085926f576841f89b9','1982-09-16',2,0),(31,'Sergio','Pola','sergio.pola.contreras@gmail.com','1a22594abd302d89ff73ea160822f1a70569dc9d','1983-12-25',1,0),(32,'Francisco','M√©ndez','franc.mendez@gmail.com','66b45d50a411307f695e289761fe0224b9116759','1983-08-21',1,0),(33,'Felipe','Sologuren','sologuren@estudiohum.cl','f67af6dfc93be6aecd13836229795be0dad4e37d','1973-10-19',1,0),(34,'Nicolas','Malbran','nmalbran@gmail.com','15205c408ee02033454ec76079c6dd739fc2dfb7','1988-06-11',1,0),(35,'Roberto','Varas','rvaras@dcc.uchile.cl','046eba177d9d48e7359704ae338d87d667faf2ea','1980-06-19',1,0),(36,'Roberto','Riquelme','rriquelm@dcc.uchile.cl','afcf7de80a389cb6cf8f70f6144604b5c529a211','1987-01-05',1,0),(37,'Jos√© Pepe','Flores Peters','jflores@newtenberg.com','20eba75c8337f1c61942f26e04c68dee7e344985','1968-12-04',2,0),(38,'Ivan','Pliouchtchai','ivan.pli+bolsa.trabajo.dcc@gmail.com','3b2e84dd350067c403901e7734630ce8d20d7236','1986-06-24',1,0),(39,'Alejandro','Lavado','alejandro.lvd@gmail.com','337836de2afa3d032a9e3216b6f0d3c144007bd7','1988-03-17',1,0),(40,'Ivan','Rojas','ivanrohe@gmail.com','4116c1a670a92fcfe20203e95d55a29ad5234c58','1990-03-10',1,0),(41,'Diego','Schmitt Rivera','dschmitt@dcc.uchile.cl','d49eb5298f8fc5e910e023587fb7ef0f1a9db99e','1987-04-04',1,0),(42,'Rodrigo','D√≠az','Rodrigo.Diaz.D@gmail.com','fffacd1af71c72183b87c0bc08192dd56776451b','1986-08-07',1,0),(43,'Pedro','Valencia','pvalencia@gmail.com','5559255305bbc4a9df2366c43fc4268f3b7071de','1985-08-25',1,0),(44,'alex','cevallos','alexcevallos@hotmail.com','684fde787aa62c227c93355fa9f5541058d5ab91','1982-11-09',1,0);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -313,4 +316,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2010-11-25 19:58:38
+-- Dump completed on 2010-11-26 12:20:20

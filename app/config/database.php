@@ -76,23 +76,13 @@ class DATABASE_CONFIG {
         'driver' => 'mysql',
         'persistent' => false,
         'host' => 'localhost',
-        'login' => 'ividela',
-        'password' => '1q2w3e',
-        'database' => 'bolsa',
-        'prefix' => '',
-        'encoding' => 'utf8' /* IMPORTANTE */
-    );
-   /* var $default = array(
-        'driver' => 'mysql',
-        'persistent' => false,
-        'host' => 'localhost',
         'login' => 'bolsa',
         'password' => 'bolsa',
         'database' => 'bolsa',
         'prefix' => '',
-        'encoding' => 'utf8' /* IMPORTANTE 
- //   );
-*/
+        'encoding' => 'utf8' /* IMPORTANTE */
+    );
+
     var $test = array(
         'driver' => 'mysql',
         'persistent' => false,

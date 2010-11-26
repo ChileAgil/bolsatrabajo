@@ -1,4 +1,7 @@
-/app/config/*
-/app/tmp/*
+# A gitignore file specifies intentionally untracked files that git should ignore. Note that all the gitignore files really concern only files that are not already tracked by git; in order to ignore uncommitted changes in already tracked files, please refer to the git update-index --assume-unchanged documentation.
+# por lo tanto, no resulta ignorar los cambios en database.php 8(
+# pa que usan users cuaticos pa la coneccion? usen bolsa bolsa bolsa si es development D:
+/app/config/
+/app/tmp/
 /plugins
 /vendors

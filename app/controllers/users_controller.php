@@ -258,23 +258,28 @@ class UsersController extends AppController {
         }
     }
     
-    function aceptar_empresa($usuario_responsable_id = null){
-        if($usuario_responsable_id){
-            //$this->Empresa->empresa_id = $usuario_responsable_id;
-			$datos['empresa_id'] = $usuario_responsable_id;
-			$datos['validada'] = 1;
-            if($this->Empresa->save($datos)){
-				//$this->Empresa->saveField('validada',1)){
-                $this->showSuccessMessage(__('Empresa aceptada', true));
-                $this->redirect(array('action' => 'empresas_pendientes'));
+    function aceptar_empresa($empresa_id = null){
+        if($empresa_id){
+            $this->Empresa->id = $empresa_id;
+            if($this->Empresa->saveField('validada',1)){
+                $this->User->id = $this->Empresa->field('usuario_id');
+                if($this->User->saveField('activo',1)){
+                    $this->showSuccessMessage(__('Empresa aceptada', true));
+                    $this->redirect(array('action' => 'empresas_pendientes'));
+                }
+                else{
+                    //rollback
+                    $this->Empresa->saveField('validada',0);
+                }
             }
         }
         $this->showErrorMessage(__('Ocurrió un error al aceptar la empresa', true));
         $this->redirect(array('action' => 'empresas_pendientes'));
     }
     
-    function rechazar_empresa($usuario_responsable_id = null){
-        if($usuario_responsable_id){
+    //TODO
+    function rechazar_empresa($empresa_id = null){
+        if($empresa_id){
             /**
              * Debemos borrar los usuarios rechazados por secretaria docente?
              *
