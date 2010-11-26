@@ -247,7 +247,7 @@ class UsersController extends AppController {
 	}
     
     function empresas_pendientes(){
-        $empresas = $this->User->find('all', array('conditions' => array('User.activo' => 0)));
+        $empresas = $this->User->find('all', array('conditions' => array('Empresa.validada' => 0)));
         $this->set(compact('empresas'));
     }
     
@@ -260,13 +260,16 @@ class UsersController extends AppController {
     
     function aceptar_empresa($usuario_responsable_id = null){
         if($usuario_responsable_id){
-            $this->User->id = $usuario_responsable_id;
-            if($this->User->saveField('activo',1)){
+            //$this->Empresa->empresa_id = $usuario_responsable_id;
+			$datos['empresa_id'] = $usuario_responsable_id;
+			$datos['validada'] = 1;
+            if($this->Empresa->save($datos)){
+				//$this->Empresa->saveField('validada',1)){
                 $this->showSuccessMessage(__('Empresa aceptada', true));
                 $this->redirect(array('action' => 'empresas_pendientes'));
             }
         }
-        $this->showErrorMessage(__('Ocurrio un error al aceptar la empresa', true));
+        $this->showErrorMessage(__('Ocurrió un error al aceptar la empresa', true));
         $this->redirect(array('action' => 'empresas_pendientes'));
     }
     

@@ -5,7 +5,7 @@
 			<th>Razon Social</th>
 			<th>Usuario Representante</th>
 			<th>Email</th>
-			<th class="actions"><?php __('Actions');?></th>
+			<th class="actions"><?php __('Acciones');?></th>
 	</tr>
 	<?php
 	$i = 0;

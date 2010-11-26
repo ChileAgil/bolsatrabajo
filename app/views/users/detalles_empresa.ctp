@@ -65,7 +65,7 @@
 <div class="actions">
 	<h3><?php __('Acciones'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('Aceptar Empresa', true), array('action' => 'aceptar_empresa', $empresa['User']['usuario_id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('Rechazar Empresa', true), array('action' => 'rechazar_empresa', $empresa['User']['usuario_id']), null, sprintf(__('Seguro desea rechazar la empresa %s?', true), $empresa['Empresa']['nombre_fantasia'])); ?> </li>
+		<li><?php echo $this->Html->link(__('Aceptar Empresa', true), array('action' => 'aceptar_empresa', $empresa['Empresa']['empresa_id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('Rechazar Empresa', true), array('action' => 'rechazar_empresa', $empresa['Empresa']['empresa_id']), null, sprintf(__('Seguro desea rechazar la empresa %s?', true), $empresa['Empresa']['nombre_fantasia'])); ?> </li>
 	</ul>
 </div>
