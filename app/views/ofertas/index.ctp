@@ -1,6 +1,6 @@
 <div class="ofertas index">
 	<h2><?php __('Ofertas');?></h2>
-
+<?php //debug($ofertas);?>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 			
@@ -16,6 +16,7 @@
 	$i = 0;
 //	debug($ofertas);
 	foreach ($ofertas as $oferta):
+	//debug($oferta);
 		$class = null;
 		if ($i++ % 2 == 0) {
 			$class = ' class="altrow"';

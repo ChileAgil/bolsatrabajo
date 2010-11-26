@@ -2,7 +2,7 @@
 class OfertasController extends AppController {
 
 	var $name = 'Ofertas';
-    
+    var $uses = array('Oferta','Empresa','User');
     function beforeFilter() {
 		parent::beforeFilter();
         
@@ -91,6 +91,51 @@ class OfertasController extends AppController {
         $this->set(compact('tipo_requerimientos'));
 	}
 
+	function ofertas_pendientes(){
+        $ofertas = $this->Oferta->find('all', array('conditions' => array('Oferta.validada' => 0)));
+        $this->set(compact('ofertas'));
+    }
+    
+    function detalles_ofertas($oferta_id = null){
+        if($oferta_id){
+			$this->Oferta->recursive = 2;
+            $oferta = $this->Oferta->find('first', array('conditions' => array('Oferta.oferta_id' => $oferta_id)));
+            $this->set('oferta', $oferta);
+        }
+    }
+    
+    function aceptar_oferta($oferta_id = null){
+        if($oferta_id){
+            //$this->Empresa->empresa_id = $usuario_responsable_id;
+			$datos['oferta_id'] = $oferta_id;
+			$datos['validada'] = 1;
+			$this->Oferta->oferta_id = $oferta_id;
+		//	debug($this->Oferta->save($datos));
+            if($this->Oferta->save($datos,true,array('validada'))){
+				//$this->Empresa->saveField('validada',1)){
+                $this->showSuccessMessage(__('Oferta aceptada', true));
+                $this->redirect(array('action' => 'ofertas_pendientes'));
+            }
+        }
+        $this->showErrorMessage(__('Ocurrió un error al aceptar la oferta', true));
+        $this->redirect(array('action' => 'ofertas_pendientes'));
+    }
+    function rechazar_oferta($usuario_responsable_id = null){
+        if($usuario_responsable_id){
+            /**
+             * Debemos borrar los usuarios rechazados por secretaria docente?
+             *
+            if($this->User->Empresa->deleteAll(array('Empresa.usuario_id' => $usuario_responsable_id))){
+                if($this->User->delete($usuario_responsable_id, false)){
+                    $this->showSuccessMessage(__('Empresa rechazada', true));
+                    $this->redirect(array('action' => 'empresas_pendientes'));
+                }
+            }
+            */
+        }
+        $this->showErrorMessage(__('Ocurrio un error al rechazar la oferta', true));
+        $this->redirect(array('action' => 'ofertas_pendientes'));
+    }
 	function edit($id = null) {
 		$usuario_id = $this->Auth->user('usuario_id');
 		$tipo_usuario = $this->Auth->user('tipo_usuario_id');
